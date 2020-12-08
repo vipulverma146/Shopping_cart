@@ -1,6 +1,17 @@
 import React from 'react';
 class CartItem extends React.Component{
+    constructor(){
+    super();
+
+        this.state={
+            price:9999,
+            title:'Mobile Phone',
+            qty:1,
+            img:''
+        }
+    }
     render(){
+        const {price,title,qty,img}=this.state;  // destructuring
         return(
             <div className="cart-item">
                 <div className="left-block">
@@ -8,12 +19,18 @@ class CartItem extends React.Component{
 
                 </div>
                 <div className="right-block">
-                    <div style={{fontSize:25}}> Phone</div>
-                    <div style={{color:'#777'}}> Rs.99999</div>
-                    <div style={{color:'#777'}}> Quantity:1</div>
+                    <div style={{fontSize:25}}>{title}</div>
+                    <div style={{color:'#777'}}> Rs.{price}</div>
+                    <div style={{color:'#777'}}> Quantity:{qty}</div>
                     <div className="cart-item-action">
                         {/*Buttons*/}
-                    </div>
+                        <img alt="Incraese" className="action-icons" src="https://www.flaticon.com/svg/static/icons/svg/709/709484.svg"></img>
+                        
+                        <img alt="Decrease" className="action-icons" src="https://www.flaticon.com/svg/static/icons/svg/659/659892.svg"></img>
+                        <img alt="delete" className="action-icons" src="https://www.flaticon.com/svg/static/icons/svg/3096/3096673.svg"></img>
+
+
+                  </div>
 
                 </div>
 
