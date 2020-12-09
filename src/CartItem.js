@@ -12,7 +12,22 @@ class CartItem extends React.Component{
        // this.increaseQuantity=this.increaseQuantity.bind(this);    we can bind the function in constructure also
     }
     increaseQuantity=()=>{
-        console.log("test" ,this);
+        this.setState((prevState)=>{
+            return{
+                qty:prevState.qty+1
+            }
+        });
+        // console.log("test" ,this);
+    }
+    decreseQuantity=()=>{
+        this.setState((prevState)=>{
+            if(prevState.qty>0){
+            return{
+                qty:prevState.qty-1
+            }
+        }
+        
+        });
     }
     render(){
         const {price,title,qty,img}=this.state;  // destructuring
@@ -36,7 +51,9 @@ class CartItem extends React.Component{
                         
                         <img alt="Decrease" 
                         className="action-icons" 
-                        src="https://www.flaticon.com/svg/static/icons/svg/659/659892.svg"></img>
+                        src="https://www.flaticon.com/svg/static/icons/svg/659/659892.svg"
+                        onClick={this.decreseQuantity}
+                        ></img>
                         
                         <img alt="delete" 
                         className="action-icons" 
