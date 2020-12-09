@@ -9,6 +9,10 @@ class CartItem extends React.Component{
             qty:1,
             img:''
         }
+       // this.increaseQuantity=this.increaseQuantity.bind(this);    we can bind the function in constructure also
+    }
+    increaseQuantity=()=>{
+        console.log("test" ,this);
     }
     render(){
         const {price,title,qty,img}=this.state;  // destructuring
@@ -24,10 +28,19 @@ class CartItem extends React.Component{
                     <div style={{color:'#777'}}> Quantity:{qty}</div>
                     <div className="cart-item-action">
                         {/*Buttons*/}
-                        <img alt="Incraese" className="action-icons" src="https://www.flaticon.com/svg/static/icons/svg/709/709484.svg"></img>
+                        <img alt="Incraese" 
+                        className="action-icons" 
+                        src="https://www.flaticon.com/svg/static/icons/svg/709/709484.svg"
+                        onClick={this.increaseQuantity.bind(this)} >   
+                        </img>
                         
-                        <img alt="Decrease" className="action-icons" src="https://www.flaticon.com/svg/static/icons/svg/659/659892.svg"></img>
-                        <img alt="delete" className="action-icons" src="https://www.flaticon.com/svg/static/icons/svg/3096/3096673.svg"></img>
+                        <img alt="Decrease" 
+                        className="action-icons" 
+                        src="https://www.flaticon.com/svg/static/icons/svg/659/659892.svg"></img>
+                        
+                        <img alt="delete" 
+                        className="action-icons" 
+                        src="https://www.flaticon.com/svg/static/icons/svg/3096/3096673.svg"></img>
 
 
                   </div>
