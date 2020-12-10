@@ -34,6 +34,33 @@ class Cart extends React.Component {
         }
         // this.increaseQuantity=this.increaseQuantity.bind(this);    we can bind the function in constructure also
     }
+    handleIncreaseQuantity = (product) => {
+        console.log(" the qty gets increased", product);
+
+        const { products } = this.state;
+        const index = products.indexOf(product);  //get index of product whose qty need to increase.
+        products[index].qty += 1;
+        this.setState({
+            products: products
+        })
+
+
+    }
+
+    handleDecreaseQuantity = (product) => {
+
+        const { products } = this.state;
+        const index = products.indexOf(product);
+
+        if (products[index].qty > 0) {
+            products[index].qty -= 1;
+        }
+
+        this.setState({
+            products: products
+        })
+    }
+
     render() {
         const { products } = this.state;
         return (
@@ -44,6 +71,9 @@ class Cart extends React.Component {
                     return <CartItem
                         product={product}
                         key={product.id}
+                        onIncreaseQuantity={this.handleIncreaseQuantity}
+                        onDeccreaseQuantity={this.handleDecreaseQuantity}
+
                     />
 
 
