@@ -1,16 +1,5 @@
 import React from 'react';
 class CartItem extends React.Component{
-    constructor(){
-    super();
-
-        this.state={
-            price:9999,
-            title:'Mobile Phone',
-            qty:1,
-            img:''
-        }
-       // this.increaseQuantity=this.increaseQuantity.bind(this);    we can bind the function in constructure also
-    }
     increaseQuantity=()=>{
         this.setState((prevState)=>{
             return{
@@ -30,7 +19,8 @@ class CartItem extends React.Component{
         });
     }
     render(){
-        const {price,title,qty,img}=this.state;  // destructuring
+        console.log("this.props",this.props);
+        const {price,title,qty,img}=this.props.product;  // destructuring
         return(
             <div className="cart-item">
                 <div className="left-block">
