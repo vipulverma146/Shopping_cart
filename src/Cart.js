@@ -3,76 +3,9 @@ import React from 'react';
 import CartItem from './CartItem';
 
 
-class Cart extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            products: [
-                {
-                    price: 9999,
-                    title: "Mobile Phone",
-                    qty: 1,
-                    img: '',
-                    id: 1
-                },
-                {
-                    price: 999,
-                    title: "Watch",
-                    qty: 1,
-                    img: '',
-                    id: 2
-                },
-                {
-                    price: 35000,
-                    title: "Laptop",
-                    qty: 1,
-                    img: '',
-                    id: 3
-                }
-            ]
-        }
-        // this.increaseQuantity=this.increaseQuantity.bind(this);    we can bind the function in constructure also
-    }
-    handleIncreaseQuantity = (product) => {
-        console.log(" the qty gets increased", product);
-
-        const { products } = this.state;
-        const index = products.indexOf(product);  //get index of product whose qty need to increase.
-        products[index].qty += 1;
-        this.setState({
-            products: products
-        })
-
-
-    }
-
-    handleDecreaseQuantity = (product) => {
-
-        const { products } = this.state;
-        const index = products.indexOf(product);
-
-        if (products[index].qty > 0) {
-            products[index].qty -= 1;
-        }
-
-        this.setState({
-            products: products
-        })
-    }
-
-    handleDeleteProduct =(id) =>{
-        const {products}=this.state;
-
-        const items = products.filter((item)=> item.id !== id);
-
-        this.setState({
-            products:items
-        })
-    }
-
-    render() {
-        const { products } = this.state;
+const  Cart =(props)=> {
+     
+        const { products } = props;
         return (
 
             <div className='cart'>
@@ -81,9 +14,9 @@ class Cart extends React.Component {
                     return <CartItem
                         product={product}
                         key={product.id}
-                        onIncreaseQuantity={this.handleIncreaseQuantity}
-                        onDeccreaseQuantity={this.handleDecreaseQuantity}
-                        onDeleteQuantity={this.handleDeleteProduct}
+                        onIncreaseQuantity={props.onIncreaseQuantity}
+                        onDeccreaseQuantity={props.onDeccreaseQuantity}
+                        onDeleteQuantity={props.onDeleteQuantity}
 
                     />
 
@@ -94,6 +27,6 @@ class Cart extends React.Component {
         )
     }
 
-}
+
 
 export default Cart;
