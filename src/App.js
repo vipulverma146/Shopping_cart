@@ -12,21 +12,21 @@ class App extends React.Component {
           price: 9999,
           title: "Mobile Phone",
           qty: 1,
-          img: '',
+          img: 'https://www.android.com/static/2016/img/one/carousel/nokia_5_3_1x.png',
           id: 1
         },
         {
           price: 999,
           title: "Watch",
           qty: 1,
-          img: '',
+          img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8d2F0Y2h8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
           id: 2
         },
         {
           price: 35000,
           title: "Laptop",
           qty: 1,
-          img: '',
+          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAi_aJtn0hIrpvmAGk3illu8YMvyFqHkOY3A&usqp=CAU',
           id: 3
         }
       ]
@@ -83,6 +83,15 @@ class App extends React.Component {
     return count;
 
   }
+  totalAmount=()=>{
+    const {products}=this.state;
+
+    let cartTotal=0;
+    products.map((product)=>{
+      cartTotal=cartTotal+product.qty *product.price;
+    });
+    return cartTotal;
+  }
 
   render() {
     const {products}=this.state;
@@ -100,6 +109,7 @@ class App extends React.Component {
         onDeleteQuantity={this.handleDeleteProduct}
         
         />
+        <div><h2 style={{padding :10}}>Total Amount:-Rs.{this.totalAmount()}</h2></div>
       </div>
     );
   }
