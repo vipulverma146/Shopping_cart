@@ -19,8 +19,8 @@ class App extends React.Component {
   componentDidMount(){
     firebase.firestore() //getting data from fire store
     .collection('Products')
-    .get()
-    .then((snapshot)=>{
+    
+    .onSnapshot((snapshot)=>{
       console.log(snapshot);
 
       snapshot.docs.map((doc)=>{
@@ -103,6 +103,25 @@ class App extends React.Component {
     return cartTotal;
   }
 
+  addProduct=()=>{
+    firebase.firestore()
+       .collection('Products')
+       .add({
+         img:'https://static.cilory.com/413480-thickbox_default/monte-carlo-cd-black-sweatshirt.jpg',
+         price:1010,
+         title:'Sweater',
+         qty:2
+       })
+       .then((refDoc)=>{
+         console.log("Product has been added",refDoc);
+
+       })
+       .catch((error)=>{
+         console.log('Error',error);
+       })
+      
+      }
+
   render() {
     const {products,loading}=this.state;
     return (
@@ -119,6 +138,7 @@ class App extends React.Component {
         onDeleteQuantity={this.handleDeleteProduct}
         
         />
+        <button onClick={this.addProduct}> Add Product</button>
         {loading && <h1> Products Loading...</h1>}
         <div><h2 style={{padding :10}}>Total Amount:-Rs.{this.totalAmount()}</h2></div>
       </div>
