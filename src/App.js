@@ -48,9 +48,25 @@ class App extends React.Component {
 
     const { products } = this.state;
     const index = products.indexOf(product);  //get index of product whose qty need to increase.
-    products[index].qty += 1;
-    this.setState({
-      products: products
+    
+    
+    
+    // products[index].qty += 1;
+    // this.setState({
+    //   products: products
+    // })
+
+    const refDoc=firebase.firestore().collection('Products').doc(products[index].id);
+
+    refDoc.update({
+      qty:products[index].qty+1
+
+    })
+    .then(()=>{
+      console.log("Updated Succesfully");
+    })
+    .catch((error)=>{
+      console.log("Error:",error);
     })
 
 
@@ -61,13 +77,26 @@ class App extends React.Component {
     const { products } = this.state;
     const index = products.indexOf(product);
 
-    if (products[index].qty > 0) {
-      products[index].qty -= 1;
-    }
+    
+   if(products[index].qty ===0){
+     return;
+   }
+    // this.setState({
+    //   products: products
+    // })
+    const refDoc=firebase.firestore().collection('Products').doc(products[index].id);
 
-    this.setState({
-      products: products
+    refDoc.update({
+
+      qty:products[index].qty -1
     })
+    .then(()=>{
+      console.log("Updated Succesfully");
+    })
+    .catch((error)=>{
+      console.log("Error:",error);
+    })
+
   }
 
   handleDeleteProduct = (id) => {
