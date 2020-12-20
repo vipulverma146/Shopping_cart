@@ -1,38 +1,48 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
+import  firebase from 'firebase/app';
+
+
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      products: [
-        {
-          price: 9999,
-          title: "Mobile Phone",
-          qty: 1,
-          img: 'https://www.android.com/static/2016/img/one/carousel/nokia_5_3_1x.png',
-          id: 1
-        },
-        {
-          price: 999,
-          title: "Watch",
-          qty: 1,
-          img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8d2F0Y2h8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-          id: 2
-        },
-        {
-          price: 35000,
-          title: "Laptop",
-          qty: 1,
-          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAi_aJtn0hIrpvmAGk3illu8YMvyFqHkOY3A&usqp=CAU',
-          id: 3
-        }
-      ]
+      products: [],
+      loading: true
     }
     // this.increaseQuantity=this.increaseQuantity.bind(this);    we can bind the function in constructure also
   }
+
+  componentDidMount(){
+    firebase.firestore() //getting data from fire store
+    .collection('Products')
+    .get()
+    .then((snapshot)=>{
+      console.log(snapshot);
+
+      snapshot.docs.map((doc)=>{
+        console.log(doc.data());
+      });
+      const products=snapshot.docs.map((doc)=>{
+        const data=doc.data();
+
+        data['id']=doc.id;
+        return data;
+      });
+
+      this.setState({
+        products:products,
+        loading:false
+
+      })
+        
+      
+    });
+  }
+
   handleIncreaseQuantity = (product) => {
     console.log(" the qty gets increased", product);
 
@@ -94,7 +104,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {products}=this.state;
+    const {products,loading}=this.state;
     return (
       <div className="App">
         <Navbar  count={this.getCartCount()} />
@@ -109,6 +119,7 @@ class App extends React.Component {
         onDeleteQuantity={this.handleDeleteProduct}
         
         />
+        {loading && <h1> Products Loading...</h1>}
         <div><h2 style={{padding :10}}>Total Amount:-Rs.{this.totalAmount()}</h2></div>
       </div>
     );
